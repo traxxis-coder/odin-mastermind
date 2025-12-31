@@ -2,12 +2,12 @@ require_relative '../peg_line'
 
 class Code < PegLine
   def initialize
-    super(code_colors)
+    super(code_pegs)
   end
 
-  def code_colors
+  def code_pegs
     color_list = []
-    4.times { color_list.push(COLORS[(COLORS.size * rand).ceil - 1]) }
+    4.times { color_list.push(COLORS.sample.to_s) }
     color_list
   end
 end
