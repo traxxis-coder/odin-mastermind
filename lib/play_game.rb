@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'peg_line/code'
 require_relative 'peg_line/guess'
 
@@ -12,6 +14,7 @@ x - a peg is the right color and in the right place
 o - a peg is the right color but in the wrong place"
 
   attr_reader :code
+  attr_accessor :guesses
 
   def initialize
     @code = Code.new
@@ -21,11 +24,20 @@ o - a peg is the right color but in the wrong place"
   end
 
   def play_game
-    play_round
+    @@max_guesses.times do
+      result = play_round
+      puts result
+      self.guesses += 1
+      if result == 'x x x x'
+        puts "You win! It took you #{guesses} guesses. Good job!"
+        break
+      end
+    end
   end
 
   def play_round
     guess = Guess.player_guess
-    puts guess.evaluate(code)
+    puts guess
+    guess.evaluate(code)
   end
 end

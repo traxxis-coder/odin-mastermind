@@ -7,7 +7,7 @@ class Code < PegLine
 
   def code_pegs
     color_list = []
-    4.times { color_list.push(COLORS.sample.to_s) }
+    4.times { color_list.push(COLORS.sample) }
     color_list
   end
 end
