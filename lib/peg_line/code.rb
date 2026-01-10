@@ -1,13 +1,15 @@
 require_relative '../peg_line'
 
 class Code < PegLine
-  def initialize
-    super(code_pegs)
-  end
+  def self.mastermind_code
+    loop do
+      code = Code.new(gets.gsub(/\n|\s/, '').split(',').map(&:to_sym))
+      if code.valid?
+        puts code
+        return code
+      end
 
-  def code_pegs
-    color_list = []
-    4.times { color_list.push(COLORS.sample) }
-    color_list
+      puts 'Invalid code, try again.'
+    end
   end
 end

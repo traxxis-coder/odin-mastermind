@@ -10,12 +10,22 @@ class PegLine
     @pegs = pegs
   end
 
+  def self.random_pegs
+    color_list = []
+    4.times { color_list.push(COLORS.sample) }
+    Code.new(color_list)
+  end
+
   def self.colors
     colors = ''
     COLORS.each do |color|
       colors += "#{color.to_s.colorize(color)}\n"
     end
     colors
+  end
+
+  def valid?
+    pegs.all? { |peg| COLORS.include?(peg) }
   end
 
   def to_s

@@ -2,8 +2,13 @@ class Guess < PegLine
   attr_accessor :guess_colors
 
   def self.player_guess
-    puts 'Enter four comma separated color names to submit a guess.'
-    Guess.new(gets.gsub(/\n|\s/, '').split(',').map(&:to_sym))
+    loop do
+      puts 'Enter four comma separated color names to submit a guess.'
+      guess = Guess.new(gets.gsub(/\n|\s/, '').split(',').map(&:to_sym))
+      return guess if guess.valid?
+
+      puts 'Invalid input, try again.'
+    end
   end
 
   def evaluate(code)
