@@ -52,7 +52,13 @@ The colors at your disposal are:
   def play_as_mastermind
     puts @@mastermind_rules
     code = Code.mastermind_code
-    AIGuess.random_guess(code, @@max_guesses)
+    algorithm_number = (rand * 2).ceil - 1
+    case algorithm_number
+    when 0
+      AIGuess.random_guess(code, @@max_guesses)
+    when 1
+      AIGuess.advanced_random(code, @@max_guesses)
+    end
   end
 
   def play_round
