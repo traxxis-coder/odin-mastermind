@@ -40,12 +40,7 @@ The colors at your disposal are:
       result = play_round
       puts result
       self.guesses += 1
-      if result == 'x x x x'
-        puts "You win! It took you #{guesses} guesses. Good job!"
-        break
-      elsif self.guesses == @@max_guesses
-        puts 'Sorry, you lost. Better luck next time.'
-      end
+      break if game_over?(result)
     end
   end
 
@@ -68,6 +63,18 @@ The colors at your disposal are:
       return role if %w[g m].include?(role)
 
       puts 'Invalid input, try again.'
+    end
+  end
+
+  def game_over?(result)
+    if result == 'x x x x'
+      puts "You win! It took you #{guesses} guesses. Good job!"
+      true
+    elsif self.guesses == @@max_guesses
+      puts 'Sorry, you lost. Better luck next time.'
+      true
+    else
+      false
     end
   end
 end

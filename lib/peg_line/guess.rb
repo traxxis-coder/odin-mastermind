@@ -15,6 +15,13 @@ class Guess < PegLine
     code_pegs = code.pegs.map(&:clone)
     pegs = self.pegs
     rating = []
+    check_for_x(pegs, code_pegs, rating)
+    code_pegs.compact!
+    check_for_o(pegs, code_pegs, rating)
+    rating.join(' ')
+  end
+
+  def check_for_x(pegs, code_pegs, rating)
     4.times do |index|
       next unless pegs[index] == code_pegs[index]
 
@@ -22,13 +29,14 @@ class Guess < PegLine
       code_pegs[index] = nil
       pegs[index] = nil
     end
-    code_pegs.compact!
+  end
+
+  def check_for_o(pegs, code_pegs, rating)
     4.times do |index|
       if code_pegs.include?(pegs[index])
         rating.push('o')
         code_pegs.delete(pegs[index])
       end
     end
-    rating.join(' ')
   end
 end
